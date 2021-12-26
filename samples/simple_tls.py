@@ -26,29 +26,30 @@ from command_line_arguments import (ENCRYPTION_PROTOCOLS,
                                     get_command_line_options)
 
 
-options = get_command_line_options()
+if __name__ == '__main__':
+    options = get_command_line_options()
 
-message = Message(sender=Recipient(name='Muflone Ovinis',
-                                   address='muflone@muflone.com'),
-                  to=[Recipient(address='webreg@muflone.com')],
-                  subject='Testing with TLS',
-                  body='<html><body><h1>Hello world!</h1></body></html>',
-                  use_html=True)
-message.add_attachment(Attachment.load_filename(
-    filename=pathlib.Path(__file__).parent.parent / 'README.md',
-    content_type='text/plain'))
-message.add_attachment(Attachment.load_filename(
-    filename=pathlib.Path(__file__).parent.parent / 'LICENSE'))
+    message = Message(sender=Recipient(name='Muflone Ovinis',
+                                       address='muflone@muflone.com'),
+                      to=[Recipient(address='webreg@muflone.com')],
+                      subject='Testing with TLS',
+                      body='<html><body><h1>Hello world!</h1></body></html>',
+                      use_html=True)
+    message.add_attachment(Attachment.load_filename(
+        filename=pathlib.Path(__file__).parent.parent / 'README.md',
+        content_type='text/plain'))
+    message.add_attachment(Attachment.load_filename(
+        filename=pathlib.Path(__file__).parent.parent / 'LICENSE'))
 
-mailer = Connection(server=options.server,
-                    port=options.port,
-                    username=options.username,
-                    password=options.password,
-                    use_tls=True,
-                    use_ssl=False)
-if encryption_protocol := ENCRYPTION_PROTOCOLS.get(options.encryption):
-    mailer.set_encryption(protocol=encryption_protocol,
-                          ciphers=options.ciphers)
-mailer.connect()
-mailer.send(message)
-mailer.disconnect()
+    mailer = Connection(server=options.server,
+                        port=options.port,
+                        username=options.username,
+                        password=options.password,
+                        use_tls=True,
+                        use_ssl=False)
+    if encryption_protocol := ENCRYPTION_PROTOCOLS.get(options.encryption):
+        mailer.set_encryption(protocol=encryption_protocol,
+                              ciphers=options.ciphers)
+    mailer.connect()
+    mailer.send(message)
+    mailer.disconnect()
