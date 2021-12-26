@@ -18,7 +18,11 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-from .connection import Connection                                 # noqa: F401
-from .constants import APP_VERSION as __version__                  # noqa: F401
-from .message import Message                                       # noqa: F401
-from .recipient import Recipient                                   # noqa: F401
+APP_NAME = 'MuMailer'
+APP_VERSION = '0.1.0'
+APP_DESCRIPTION = 'Simple mailer agent using SMTP'
+APP_ID = 'mumailer.muflone.com'
+APP_URL = 'http://www.muflone.com/mumailer/'
+APP_AUTHOR = 'Fabio Castelli'
+APP_AUTHOR_EMAIL = 'muflone@muflone.com'
+APP_COPYRIGHT = 'Copyright 2021 %s' % APP_AUTHOR
