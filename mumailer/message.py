@@ -24,6 +24,7 @@ import email.message
 import email.utils
 from typing import Optional
 
+from .attachment import Attachment
 from .recipient import Recipient
 
 
@@ -38,6 +39,8 @@ class Message(object):
     reply_to: Optional[Recipient] = None
     use_html: bool = False
     date: Optional[datetime.datetime] = None
+    attachments: Optional[list[Attachment]] = dataclasses.field(
+        default_factory=lambda: [])
 
     def to_email_message(self) -> email.message.EmailMessage:
         """
@@ -59,4 +62,21 @@ class Message(object):
         message['Date'] = email.utils.formatdate(timeval=self.date)
         message.set_content(self.body,
                             subtype='html' if self.use_html else 'plain')
+        if self.attachments:
+            # Add attachments
+            for attachment in self.attachments:
+                maintype, subtype = attachment.content_type.split('/', 1)
+                message.add_attachment(obj=attachment.content,
+                                       maintype=maintype,
+                                       subtype=subtype,
+                                       filename=attachment.filename)
         return message
+
+    def add_attachment(self,
+                       attachment: Attachment) -> None:
+        """
+        Add a new Attachment object to the attachments list
+
+        :param attachment: Attachment object to append
+        """
+        self.attachments.append(attachment)

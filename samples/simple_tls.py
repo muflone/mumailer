@@ -18,7 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-from mumailer import Connection, Message, Recipient
+import pathlib
+
+from mumailer import Attachment, Connection, Message, Recipient
 
 from command_line_arguments import (ENCRYPTION_PROTOCOLS,
                                     get_command_line_options)
@@ -32,6 +34,11 @@ message = Message(sender=Recipient(name='Muflone Ovinis',
                   subject='Testing with TLS',
                   body='<html><body><h1>Hello world!</h1></body></html>',
                   use_html=True)
+message.add_attachment(Attachment.load_filename(
+    filename=pathlib.Path(__file__).parent.parent / 'README.md',
+    content_type='text/plain'))
+message.add_attachment(Attachment.load_filename(
+    filename=pathlib.Path(__file__).parent.parent / 'LICENSE'))
 
 mailer = Connection(server=options.server,
                     port=options.port,

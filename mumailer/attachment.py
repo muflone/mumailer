@@ -18,8 +18,30 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-from .attachment import Attachment                                 # noqa: F401
-from .connection import Connection                                 # noqa: F401
-from .constants import APP_VERSION as __version__                  # noqa: F401
-from .message import Message                                       # noqa: F401
-from .recipient import Recipient                                   # noqa: F401
+import dataclasses
+import pathlib
+
+
+@dataclasses.dataclass
+class Attachment(object):
+    filename: str
+    content: bytes
+    charset: str = None
+    content_type: str = None
+
+    @classmethod
+    def load_filename(self,
+                      filename: str,
+                      content_type='application/octet-stream') -> 'Attachment':
+        """
+        Load an attachment from a file
+
+        :param filename: filename to load data from
+        :param content_type: attachment content type
+        :return:
+        """
+        with open(filename, 'rb') as file:
+            content = file.read()
+        return Attachment(filename=pathlib.Path(filename).name,
+                          content=content,
+                          content_type=content_type)
