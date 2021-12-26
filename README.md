@@ -1,4 +1,6 @@
 # MuMailer
+[![Travis CI Build Status](https://img.shields.io/travis/com/muflone/mumailer/master.svg)](https://www.travis-ci.com/github/muflone/mumailer)
+[![CircleCI Build Status](https://img.shields.io/circleci/project/github/muflone/mumailer/master.svg)](https://circleci.com/gh/muflone/mumailer)
 
 **Description:** Simple mailer agent using SMTP
 
