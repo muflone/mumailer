@@ -75,6 +75,10 @@ def get_command_line_options() -> argparse.Namespace:
                        required=True,
                        type=recipient_type,
                        help='Sender name and address')
+    group.add_argument('--reply_to',
+                       required=False,
+                       type=recipient_type,
+                       help='Reply-to name and address')
     group.add_argument('--to',
                        required=False,
                        type=recipient_type,
