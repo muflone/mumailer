@@ -30,7 +30,7 @@ if __name__ == '__main__':
     options = get_command_line_options()
 
     message = Message(sender=Recipient.parse(options.sender),
-                      to=[Recipient(address='webreg@muflone.com')],
+                      to=[Recipient.parse(option) for option in options.to],
                       subject='Testing with TLS',
                       body='<html><body><h1>Hello world!</h1></body></html>',
                       use_html=True)
