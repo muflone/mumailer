@@ -21,6 +21,8 @@
 import argparse
 import ssl
 
+from mumailer.recipient import Recipient
+
 ENCRYPTION_PROTOCOLS = {
     'SSLv23': ssl.PROTOCOL_SSLv23,
     'TLS_CLIENT': ssl.PROTOCOL_TLS_CLIENT,
@@ -29,6 +31,19 @@ ENCRYPTION_PROTOCOLS = {
     'TLSv1_1': ssl.PROTOCOL_TLSv1_1,
     'TLSv1_2': ssl.PROTOCOL_TLSv1_2,
 }
+
+
+def recipient_type(option) -> Recipient:
+    """
+    Validate recipient type option
+
+    :param option: recipient string in the form "Name address" or "address"
+    :return: recipient string if the option is valid or raise ArgumentTypeError
+    """
+    recipient = Recipient.parse(option)
+    if '@' not in recipient.address:
+        raise argparse.ArgumentTypeError(f'Invalid recipient {option}')
+    return option
 
 
 def get_command_line_options() -> argparse.Namespace:
@@ -54,6 +69,12 @@ def get_command_line_options() -> argparse.Namespace:
                         required=False,
                         type=str,
                         help='SMTP authentication username')
+
+    group = parser.add_argument_group('recipients')
+    group.add_argument('--sender',
+                       required=True,
+                       type=recipient_type,
+                       help='Sender name and address')
 
     group = parser.add_argument_group('encryption')
     group.add_argument('--encryption',

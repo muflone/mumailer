@@ -29,8 +29,7 @@ from command_line_arguments import (ENCRYPTION_PROTOCOLS,
 if __name__ == '__main__':
     options = get_command_line_options()
 
-    message = Message(sender=Recipient(name='Muflone Ovinis',
-                                       address='muflone@muflone.com'),
+    message = Message(sender=Recipient.parse(options.sender),
                       to=[Recipient(address='webreg@muflone.com')],
                       subject='Testing with SSL',
                       body='<html><body><h1>Hello world!</h1></body></html>',

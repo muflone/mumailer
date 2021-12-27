@@ -35,3 +35,20 @@ class Recipient(object):
         return (f'"{self.name}" <{self.address}>'
                 if self.name
                 else f'<{self.address}>')
+
+    @classmethod
+    def parse(self, address: str) -> 'Recipient':
+        """
+        Parse an address in a Recipient object
+        Can receive both "Name email" or "email" only
+
+        :param address: option to extract recipient address
+        :return: Recipient object
+        """
+        if ' ' in address:
+            name, email = address.rsplit(' ', 1)
+        else:
+            name = None
+            email = address
+        return Recipient(name=name,
+                         address=email)
