@@ -31,6 +31,7 @@ if __name__ == '__main__':
 
     message = Message(sender=Recipient.parse(options.sender),
                       to=[Recipient.parse(option) for option in options.to],
+                      cc=[Recipient.parse(option) for option in options.cc],
                       subject='Testing with SSL',
                       body='<html><body><h1>Hello world!</h1></body></html>',
                       use_html=True)

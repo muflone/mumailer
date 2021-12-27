@@ -81,6 +81,12 @@ def get_command_line_options() -> argparse.Namespace:
                        default=[],
                        nargs=argparse.ZERO_OR_MORE,
                        help='Message recipient name and address')
+    group.add_argument('--cc',
+                       required=False,
+                       type=recipient_type,
+                       default=[],
+                       nargs=argparse.ZERO_OR_MORE,
+                       help='Message recipient name and address for CC')
 
     group = parser.add_argument_group('encryption')
     group.add_argument('--encryption',
