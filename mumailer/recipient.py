@@ -45,10 +45,14 @@ class Recipient(object):
         :param address: option to extract recipient address
         :return: Recipient object
         """
-        if ' ' in address:
-            name, email = address.rsplit(' ', 1)
+        if address is None:
+            result = None
         else:
-            name = None
-            email = address
-        return Recipient(name=name,
-                         address=email)
+            if ' ' in address:
+                name, email = address.rsplit(' ', 1)
+            else:
+                name = None
+                email = address
+            result = Recipient(name=name,
+                               address=email)
+        return result
