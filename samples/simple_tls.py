@@ -29,13 +29,19 @@ from command_line_arguments import (ENCRYPTION_PROTOCOLS,
 if __name__ == '__main__':
     options = get_command_line_options()
 
+    # Get message body from body_file or body options
+    if options.body_file:
+        with open(options.body_file, 'r') as file:
+            body = file.read()
+    else:
+        body = options.body
     message = Message(sender=Recipient.parse(options.sender),
                       reply_to=Recipient.parse(options.reply_to),
                       to=[Recipient.parse(option) for option in options.to],
                       cc=[Recipient.parse(option) for option in options.cc],
                       bcc=[Recipient.parse(option) for option in options.bcc],
                       subject=options.subject,
-                      body=options.body,
+                      body=body,
                       use_html=options.html)
     message.add_attachment(Attachment.load_filename(
         filename=pathlib.Path(__file__).parent.parent / 'README.md',

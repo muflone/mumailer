@@ -107,6 +107,10 @@ def get_command_line_options() -> argparse.Namespace:
                        required=False,
                        type=str,
                        help='Message body')
+    group.add_argument('--body-file',
+                       required=False,
+                       type=str,
+                       help='Get message body from the specified file')
     group.add_argument('--html',
                        required=False,
                        action='store_true',
