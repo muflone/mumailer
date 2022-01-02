@@ -28,7 +28,7 @@ Please see below and the **samples** folder for some usage examples.
 
 # Basic usage
 
-To use mumailer from Python you have to instance a **Connection** and a
+To use MuMailer from Python you have to instance a **Connection** and a
 **Message** objects and then execute the send method on the connection
 object passing the message object.
 
