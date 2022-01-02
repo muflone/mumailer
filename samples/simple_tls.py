@@ -36,7 +36,7 @@ if __name__ == '__main__':
                       bcc=[Recipient.parse(option) for option in options.bcc],
                       subject=options.subject,
                       body=options.body,
-                      use_html=True)
+                      use_html=options.html)
     message.add_attachment(Attachment.load_filename(
         filename=pathlib.Path(__file__).parent.parent / 'README.md',
         content_type='text/plain'))

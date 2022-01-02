@@ -107,6 +107,11 @@ def get_command_line_options() -> argparse.Namespace:
                        required=False,
                        type=str,
                        help='Message body')
+    group.add_argument('--html',
+                       required=False,
+                       action='store_true',
+                       default=False,
+                       help='Format message body as HTML')
 
     group = parser.add_argument_group('encryption')
     group.add_argument('--encryption',
