@@ -71,3 +71,27 @@ message to *Foo*, adding *Bar* to the CC (carbon copy) list, using the subject
 The SMTP connection will be established to the localhost server on the TCP port
 465 (the server must be running) using username and password authentication.
 The SMTP data will be encrypted using the TLS protocol.
+
+## Adding attachments
+
+A Message object can have one or more attachments being sent along with the
+message body.
+
+To add an attachment to the Message object you have to instance an
+**Attachment** object from which you can set its content (as binary data) or
+load it from a file.
+
+The class method load_filename will return an Attachment object with the file
+content.
+
+```python
+from mumailer import Attachment
+
+pdf_attachment = Attachment.load_filename(filename='myfile.pdf',
+                                          content_type='application/pdf')
+message.add_attachment(pdf_attachment)
+
+txt_attachment = Attachment.load_filename(filename='document.txt',
+                                          content_type='text/plain')
+message.add_attachment(txt_attachment)
+```
