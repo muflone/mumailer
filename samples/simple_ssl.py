@@ -18,8 +18,6 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-import pathlib
-
 from mumailer import Attachment, Connection, Message, Recipient
 
 from command_line_arguments import (ENCRYPTION_PROTOCOLS,
@@ -43,11 +41,10 @@ if __name__ == '__main__':
                       subject=options.subject,
                       body=body,
                       use_html=options.html)
-    message.add_attachment(Attachment.load_filename(
-        filename=pathlib.Path(__file__).parent.parent / 'README.md',
-        content_type='text/plain'))
-    message.add_attachment(Attachment.load_filename(
-        filename=pathlib.Path(__file__).parent.parent / 'LICENSE'))
+    # Add attachments
+    for attachment_file in options.attachment:
+        message.add_attachment(Attachment.load_filename(
+            filename=attachment_file))
 
     mailer = Connection(server=options.server,
                         port=options.port,

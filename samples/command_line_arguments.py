@@ -116,6 +116,12 @@ def get_command_line_options() -> argparse.Namespace:
                        action='store_true',
                        default=False,
                        help='Format message body as HTML')
+    group.add_argument('--attachment',
+                       required=False,
+                       type=str,
+                       default=[],
+                       nargs=argparse.ZERO_OR_MORE,
+                       help='File to attach to the message')
 
     group = parser.add_argument_group('encryption')
     group.add_argument('--encryption',
