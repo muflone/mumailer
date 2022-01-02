@@ -34,7 +34,7 @@ if __name__ == '__main__':
                       to=[Recipient.parse(option) for option in options.to],
                       cc=[Recipient.parse(option) for option in options.cc],
                       bcc=[Recipient.parse(option) for option in options.bcc],
-                      subject='Testing with TLS',
+                      subject=options.subject,
                       body='<html><body><h1>Hello world!</h1></body></html>',
                       use_html=True)
     message.add_attachment(Attachment.load_filename(

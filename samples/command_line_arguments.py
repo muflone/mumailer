@@ -98,6 +98,12 @@ def get_command_line_options() -> argparse.Namespace:
                        nargs=argparse.ZERO_OR_MORE,
                        help='Message recipient name and address for BCC')
 
+    group = parser.add_argument_group('message')
+    group.add_argument('--subject',
+                       required=False,
+                       type=str,
+                       help='Message subject')
+
     group = parser.add_argument_group('encryption')
     group.add_argument('--encryption',
                        required=False,
