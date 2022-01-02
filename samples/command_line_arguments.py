@@ -103,6 +103,10 @@ def get_command_line_options() -> argparse.Namespace:
                        required=False,
                        type=str,
                        help='Message subject')
+    group.add_argument('--body',
+                       required=False,
+                       type=str,
+                       help='Message body')
 
     group = parser.add_argument_group('encryption')
     group.add_argument('--encryption',

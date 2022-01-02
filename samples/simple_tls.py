@@ -35,7 +35,7 @@ if __name__ == '__main__':
                       cc=[Recipient.parse(option) for option in options.cc],
                       bcc=[Recipient.parse(option) for option in options.bcc],
                       subject=options.subject,
-                      body='<html><body><h1>Hello world!</h1></body></html>',
+                      body=options.body,
                       use_html=True)
     message.add_attachment(Attachment.load_filename(
         filename=pathlib.Path(__file__).parent.parent / 'README.md',
