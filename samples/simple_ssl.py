@@ -21,6 +21,7 @@
 from mumailer import Attachment, Connection, Message, Recipient
 
 from command_line_arguments import (ENCRYPTION_PROTOCOLS,
+                                    get_attachment_content_type,
                                     get_command_line_options)
 
 
@@ -42,9 +43,12 @@ if __name__ == '__main__':
                       body=body,
                       use_html=options.html)
     # Add attachments
-    for attachment_file in options.attachment:
+    for index, attachment_file in enumerate(options.attachment):
         message.add_attachment(Attachment.load_filename(
-            filename=attachment_file))
+            filename=attachment_file,
+            content_type=get_attachment_content_type(
+                content_types=options.content_type,
+                index=index)))
 
     mailer = Connection(server=options.server,
                         port=options.port,

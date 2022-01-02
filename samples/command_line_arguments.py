@@ -20,6 +20,7 @@
 
 import argparse
 import ssl
+from typing import Optional
 
 from mumailer.recipient import Recipient
 
@@ -44,6 +45,32 @@ def recipient_type(option) -> Recipient:
     if '@' not in recipient.address:
         raise argparse.ArgumentTypeError(f'Invalid recipient {option}')
     return option
+
+
+def get_attachment_content_type(content_types: list[str],
+                                index: int) -> Optional[str]:
+    """
+    Get the content type for attachments
+
+    If the content_types list is empty returns no content type
+    If the content_types list has a single value use that for every attachment
+    else use the matching content_type for the attachment index
+
+    :param content_types: list of content types
+    :param index: content type index to lookup
+    :return: matching content type with the previous rules
+    """
+    if content_types:
+        if len(content_types) == 1:
+            # Use the same content type for every attachment
+            result = content_types[0]
+        else:
+            # Use the value from the content types list
+            result = content_types[index]
+    else:
+        # No explicit content type
+        result = None
+    return result
 
 
 def get_command_line_options() -> argparse.Namespace:
@@ -122,6 +149,12 @@ def get_command_line_options() -> argparse.Namespace:
                        default=[],
                        nargs=argparse.ZERO_OR_MORE,
                        help='File to attach to the message')
+    group.add_argument('--content-type',
+                       required=False,
+                       type=str,
+                       default=[],
+                       nargs=argparse.ZERO_OR_MORE,
+                       help='Content type list for attachments')
 
     group = parser.add_argument_group('encryption')
     group.add_argument('--encryption',
@@ -133,4 +166,15 @@ def get_command_line_options() -> argparse.Namespace:
                        required=False,
                        type=str,
                        help='encryption ciphers')
-    return parser.parse_args()
+    options = parser.parse_args()
+    # Check the content_type arguments
+    # It must be one of the following:
+    # - zero values = no content type
+    # - one value = uses the same content type for every attachment
+    # - more values = each attachment has its content type, the two lists must
+    #                 have the same length
+    if (options.content_type and
+            len(options.content_type) not in (1, len(options.attachment))):
+        raise argparse.ArgumentTypeError('Content type arguments must be 1 or '
+                                         'in the same number for attachments')
+    return options
