@@ -18,9 +18,13 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-from .attachment import Attachment                                 # noqa: F401
-from .connection import Connection                                 # noqa: F401
-from .constants import APP_VERSION as __version__                  # noqa: F401
-from .encryption import ENCRYPTION_PROTOCOLS                       # noqa: F401
-from .message import Message                                       # noqa: F401
-from .recipient import Recipient                                   # noqa: F401
+import ssl
+
+ENCRYPTION_PROTOCOLS = {
+    'SSLv23': ssl.PROTOCOL_SSLv23,
+    'TLS_CLIENT': ssl.PROTOCOL_TLS_CLIENT,
+    'TLS_SERVER': ssl.PROTOCOL_TLS_SERVER,
+    'TLSv1': ssl.PROTOCOL_TLSv1,
+    'TLSv1_1': ssl.PROTOCOL_TLSv1_1,
+    'TLSv1_2': ssl.PROTOCOL_TLSv1_2,
+}

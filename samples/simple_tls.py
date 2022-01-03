@@ -18,10 +18,13 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-from mumailer import Attachment, Connection, Message, Recipient
+from mumailer import (ENCRYPTION_PROTOCOLS,
+                      Attachment,
+                      Connection,
+                      Message,
+                      Recipient)
 
-from command_line_arguments import (ENCRYPTION_PROTOCOLS,
-                                    get_attachment_content_type,
+from command_line_arguments import (get_attachment_content_type,
                                     get_command_line_options)
 
 

@@ -19,19 +19,9 @@
 ##
 
 import argparse
-import ssl
 from typing import Optional
 
-from mumailer.recipient import Recipient
-
-ENCRYPTION_PROTOCOLS = {
-    'SSLv23': ssl.PROTOCOL_SSLv23,
-    'TLS_CLIENT': ssl.PROTOCOL_TLS_CLIENT,
-    'TLS_SERVER': ssl.PROTOCOL_TLS_SERVER,
-    'TLSv1': ssl.PROTOCOL_TLSv1,
-    'TLSv1_1': ssl.PROTOCOL_TLSv1_1,
-    'TLSv1_2': ssl.PROTOCOL_TLSv1_2,
-}
+from mumailer import ENCRYPTION_PROTOCOLS, Recipient
 
 
 def recipient_type(option) -> Recipient:
