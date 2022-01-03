@@ -21,7 +21,8 @@
 import argparse
 from typing import Optional
 
-from mumailer import ENCRYPTION_PROTOCOLS, Recipient
+from .encryption import ENCRYPTION_PROTOCOLS
+from .recipient import Recipient
 
 
 class CommandLineOptions(object):
