@@ -62,8 +62,8 @@ if __name__ == '__main__':
                         password=options.password,
                         use_tls=False,
                         use_ssl=True)
-    if encryption_protocol := ENCRYPTION_PROTOCOLS.get(options.encryption):
-        mailer.set_encryption(protocol=encryption_protocol,
+    if encryption := ENCRYPTION_PROTOCOLS.get(options.encryption):
+        mailer.set_encryption(protocol=encryption,
                               ciphers=options.ciphers)
     mailer.connect()
     mailer.send(message)
