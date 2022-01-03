@@ -24,12 +24,17 @@ from mumailer import (ENCRYPTION_PROTOCOLS,
                       Message,
                       Recipient)
 
-from command_line_arguments import (get_attachment_content_type,
-                                    get_command_line_options)
+from command_line_arguments import CommandLineOptions
 
 
 if __name__ == '__main__':
-    options = get_command_line_options()
+    # Get command-line options
+    command_line = CommandLineOptions()
+    command_line.add_smtp_arguments()
+    command_line.add_encryption_arguments()
+    command_line.add_recipients_arguments()
+    command_line.add_message_arguments()
+    options = command_line.parse_options()
 
     # Get message body from body_file or body options
     if options.body_file:
@@ -49,8 +54,7 @@ if __name__ == '__main__':
     for index, attachment_file in enumerate(options.attachment):
         message.add_attachment(Attachment.load_filename(
             filename=attachment_file,
-            content_type=get_attachment_content_type(
-                content_types=options.content_type,
+            content_type=command_line.get_attachment_content_type(
                 index=index)))
 
     mailer = Connection(server=options.server,
