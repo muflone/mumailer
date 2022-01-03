@@ -20,11 +20,10 @@
 
 from mumailer import (ENCRYPTION_PROTOCOLS,
                       Attachment,
+                      CommandLineOptions,
                       Connection,
                       Message,
                       Recipient)
-
-from command_line_arguments import CommandLineOptions
 
 
 if __name__ == '__main__':

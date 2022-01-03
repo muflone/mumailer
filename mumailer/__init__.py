@@ -19,6 +19,7 @@
 ##
 
 from .attachment import Attachment                                 # noqa: F401
+from .command_line_options import CommandLineOptions               # noqa: F401
 from .connection import Connection                                 # noqa: F401
 from .constants import APP_VERSION as __version__                  # noqa: F401
 from .encryption import ENCRYPTION_PROTOCOLS                       # noqa: F401
