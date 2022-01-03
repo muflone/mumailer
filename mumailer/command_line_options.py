@@ -19,6 +19,7 @@
 ##
 
 import argparse
+import pathlib
 from typing import Optional
 
 from .encryption import ENCRYPTION_PROTOCOLS
@@ -59,12 +60,16 @@ class CommandLineOptions(object):
         Add SMTP command-line options
         """
         group = self.add_group('SMTP options')
+        group.add_argument('--smtp-profile',
+                           required=False,
+                           type=str,
+                           help='profile file with SMTP settings')
         group.add_argument('--server',
-                           required=True,
+                           required=False,
                            type=str,
                            help='SMTP server address')
         group.add_argument('--port',
-                           required=True,
+                           required=False,
                            type=int,
                            help='SMTP server port number')
         group.add_argument('--username',
@@ -165,6 +170,17 @@ class CommandLineOptions(object):
         :return: command-line options
         """
         self.options = self.parser.parse_args()
+        # Check if smtp-profile or sender/server/port arguments options are set
+        if not self.options.smtp_profile and not all([self.options.server,
+                                                      self.options.port]):
+            raise argparse.ArgumentTypeError('Missing smtp-profile or '
+                                             'server+port options')
+        # Check if the profile file exists
+        if (self.options.smtp_profile and
+                not pathlib.Path(self.options.smtp_profile).is_file()):
+            raise argparse.ArgumentTypeError('The smtp-profile specified '
+                                             'does not exist')
+
         # Check the content_type arguments
         # It must be one of the following:
         # - zero values = no content type
