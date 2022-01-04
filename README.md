@@ -25,6 +25,7 @@ Please see below and the **samples** folder for some usage examples.
 # System Requirements
 
 * Python 3.x
+* PyYAML 6.0 (https://pypi.org/project/PyYAML/)
 
 # Basic usage
 

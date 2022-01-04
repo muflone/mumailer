@@ -18,17 +18,19 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-import configparser
+from typing import Any
+
+import yaml
 
 
-class Profile(object):
+class YamlProfile(object):
     def __init__(self, filename: str):
         self.section_name = ''
-        self.config = configparser.RawConfigParser()
-        self.config.optionxform = str
-        self.config.read(filenames=filename)
+        with open(filename, 'r') as file:
+            self.config = yaml.load(stream=file,
+                                    Loader=yaml.Loader)
 
-    def get_option(self, option: str, default: str = None) -> str:
+    def get_option(self, option: str, default: Any = None) -> Any:
         """
         Get an option value from the profile with the section in
         `self.section_name`
@@ -37,6 +39,5 @@ class Profile(object):
         :param default: default value if the option is not found
         :return: option value
         """
-        return self.config.get(section=self.section_name,
-                               option=option,
-                               fallback=default)
+        return self.config[self.section_name].get(option,
+                                                  default)

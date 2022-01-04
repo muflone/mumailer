@@ -18,7 +18,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-from .profile import Profile
+from .yaml_profile import YamlProfile
 
 SECTION_SMTP = 'SMTP'
 OPTION_SMTP_SERVER = 'SERVER'
@@ -32,19 +32,19 @@ OPTION_SMTP_ENCRYPTION = 'ENCRYPTION'
 OPTION_SMTP_CIPHERS = 'CIPHERS'
 
 
-class ProfileSmtp(Profile):
+class ProfileSmtp(YamlProfile):
     def __init__(self, filename: str):
         super().__init__(filename)
         self.section_name = SECTION_SMTP
         # Get options from profile file
         self.server = self.get_option(option=OPTION_SMTP_SERVER)
-        self.port = int(self.get_option(option=OPTION_SMTP_PORT,
-                                        default=25))
+        self.port = self.get_option(option=OPTION_SMTP_PORT,
+                                    default=25)
         self.username = self.get_option(option=OPTION_SMTP_USERNAME)
         self.password = self.get_option(option=OPTION_SMTP_PASSWORD)
-        self.use_tls = bool(int(self.get_option(option=OPTION_SMTP_USE_TLS,
-                                                default='0')))
-        self.use_ssl = bool(int(self.get_option(option=OPTION_SMTP_USE_SSL,
-                                                default='0')))
+        self.use_tls = self.get_option(option=OPTION_SMTP_USE_TLS,
+                                       default=False)
+        self.use_ssl = self.get_option(option=OPTION_SMTP_USE_SSL,
+                                       default=False)
         self.encryption = self.get_option(option=OPTION_SMTP_ENCRYPTION)
         self.ciphers = self.get_option(option=OPTION_SMTP_CIPHERS)
