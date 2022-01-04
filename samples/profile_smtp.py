@@ -58,15 +58,16 @@ if __name__ == '__main__':
                 index=index)))
 
     profile_smtp = ProfileSmtp(filename=options.smtp_profile)
-    mailer = Connection(server=profile_smtp.server,
-                        port=profile_smtp.port,
-                        username=profile_smtp.username,
-                        password=profile_smtp.password,
+    mailer = Connection(server=options.server or profile_smtp.server,
+                        port=options.port or profile_smtp.port,
+                        username=options.username or profile_smtp.username,
+                        password=options.password or profile_smtp.password,
                         use_tls=profile_smtp.use_tls,
                         use_ssl=profile_smtp.use_ssl)
-    if encryption := ENCRYPTION_PROTOCOLS.get(profile_smtp.encryption):
+    if encryption := ENCRYPTION_PROTOCOLS.get(options.encryption or
+                                              profile_smtp.encryption):
         mailer.set_encryption(protocol=encryption,
-                              ciphers=profile_smtp.ciphers)
+                              ciphers=options.ciphers or profile_smtp.ciphers)
     mailer.connect()
     mailer.send(message)
     mailer.disconnect()
