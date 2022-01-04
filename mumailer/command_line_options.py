@@ -194,7 +194,7 @@ class CommandLineOptions(object):
                                              'attachments')
         return self.options
 
-    def get_attachment_content_type(self, index: int) -> Optional[str]:
+    def get_content_type(self, index: int) -> Optional[str]:
         """
         Get the content type for attachments
 

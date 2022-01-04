@@ -53,8 +53,7 @@ if __name__ == '__main__':
     for index, attachment_file in enumerate(options.attachment):
         message.add_attachment(Attachment.load_filename(
             filename=attachment_file,
-            content_type=command_line.get_attachment_content_type(
-                index=index)))
+            content_type=command_line.get_content_type(index=index)))
 
     mailer = Connection(server=options.server,
                         port=options.port,
