@@ -35,7 +35,8 @@ if __name__ == '__main__':
     command_line.add_recipients_arguments()
     command_line.add_message_arguments()
     options = command_line.parse_options()
-
+    # Load SMTP settings from profile file
+    profile_smtp = ProfileSmtp(filename=options.profile_smtp)
     # Get message body from body_file or body options
     if options.body_file:
         with open(options.body_file, 'r') as file:
@@ -56,8 +57,6 @@ if __name__ == '__main__':
             filename=attachment_file,
             content_type=command_line.get_attachment_content_type(
                 index=index)))
-
-    profile_smtp = ProfileSmtp(filename=options.profile_smtp)
     mailer = Connection(server=options.server or profile_smtp.server,
                         port=options.port or profile_smtp.port,
                         username=options.username or profile_smtp.username,
