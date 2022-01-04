@@ -20,31 +20,31 @@
 
 from .yaml_profile import YamlProfile
 
-SECTION_SMTP = 'SMTP'
-OPTION_SMTP_SERVER = 'SERVER'
-OPTION_SMTP_PORT = 'PORT'
-OPTION_SMTP_USERNAME = 'USERNAME'
-OPTION_SMTP_PASSWORD = 'PASSWORD'
-OPTION_SMTP_USE_TLS = 'TLS'
-OPTION_SMTP_USE_SSL = 'SSL'
-OPTION_SMTP_TIMEOUT = 'TIMEOUT'
-OPTION_SMTP_ENCRYPTION = 'ENCRYPTION'
-OPTION_SMTP_CIPHERS = 'CIPHERS'
-
 
 class ProfileSmtp(YamlProfile):
+    SECTION = 'SMTP'
+    OPTION_SERVER = 'SERVER'
+    OPTION_PORT = 'PORT'
+    OPTION_USERNAME = 'USERNAME'
+    OPTION_PASSWORD = 'PASSWORD'
+    OPTION_USE_TLS = 'TLS'
+    OPTION_USE_SSL = 'SSL'
+    OPTION_TIMEOUT = 'TIMEOUT'
+    OPTION_ENCRYPTION = 'ENCRYPTION'
+    OPTION_CIPHERS = 'CIPHERS'
+
     def __init__(self, filename: str):
         super().__init__(filename)
-        self.section_name = SECTION_SMTP
+        self.section_name = self.SECTION
         # Get options from profile file
-        self.server = self.get_option(option=OPTION_SMTP_SERVER)
-        self.port = self.get_option(option=OPTION_SMTP_PORT,
+        self.server = self.get_option(option=self.OPTION_SERVER)
+        self.port = self.get_option(option=self.OPTION_PORT,
                                     default=25)
-        self.username = self.get_option(option=OPTION_SMTP_USERNAME)
-        self.password = self.get_option(option=OPTION_SMTP_PASSWORD)
-        self.use_tls = self.get_option(option=OPTION_SMTP_USE_TLS,
+        self.username = self.get_option(option=self.OPTION_USERNAME)
+        self.password = self.get_option(option=self.OPTION_PASSWORD)
+        self.use_tls = self.get_option(option=self.OPTION_USE_TLS,
                                        default=False)
-        self.use_ssl = self.get_option(option=OPTION_SMTP_USE_SSL,
+        self.use_ssl = self.get_option(option=self.OPTION_USE_SSL,
                                        default=False)
-        self.encryption = self.get_option(option=OPTION_SMTP_ENCRYPTION)
-        self.ciphers = self.get_option(option=OPTION_SMTP_CIPHERS)
+        self.encryption = self.get_option(option=self.OPTION_ENCRYPTION)
+        self.ciphers = self.get_option(option=self.OPTION_CIPHERS)
