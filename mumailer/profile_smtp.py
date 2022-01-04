@@ -18,7 +18,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-import configparser
+from .profile import Profile
 
 SECTION_SMTP = 'SMTP'
 OPTION_SMTP_SERVER = 'SERVER'
@@ -32,11 +32,10 @@ OPTION_SMTP_ENCRYPTION = 'ENCRYPTION'
 OPTION_SMTP_CIPHERS = 'CIPHERS'
 
 
-class ProfileSmtp(object):
+class ProfileSmtp(Profile):
     def __init__(self, filename: str):
-        self.config = configparser.RawConfigParser()
-        self.config.optionxform = str
-        self.config.read(filenames=filename)
+        super().__init__(filename)
+        self.section_name = SECTION_SMTP
         # Get options from profile file
         self.server = self.get_option(option=OPTION_SMTP_SERVER)
         self.port = int(self.get_option(option=OPTION_SMTP_PORT,
@@ -49,15 +48,3 @@ class ProfileSmtp(object):
                                                 default='0')))
         self.encryption = self.get_option(option=OPTION_SMTP_ENCRYPTION)
         self.ciphers = self.get_option(option=OPTION_SMTP_CIPHERS)
-
-    def get_option(self, option: str, default: str = None) -> str:
-        """
-        Get an option value from the profile with the section SMTP
-
-        :param option: name for the option to get data
-        :param default: default value if the option is not found
-        :return: option value
-        """
-        return self.config.get(section=SECTION_SMTP,
-                               option=option,
-                               fallback=default)
