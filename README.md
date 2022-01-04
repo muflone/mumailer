@@ -95,3 +95,35 @@ txt_attachment = Attachment.load_filename(filename='document.txt',
                                           content_type='text/plain')
 message.add_attachment(txt_attachment)
 ```
+
+## SMTP Profiles
+
+The SMTP settings can also be got from a profile file like the following:
+
+```ini
+[SMTP]
+SERVER=<SMTP server>
+PORT=465
+USERNAME=<username>
+PASSWORD=<password>
+TLS=0
+SSL=1
+TIMEOUT=30
+ENCRYPTION=TLSv1_2
+CIPHERS=
+```
+
+And instance the **ProfileSmtp** object:
+
+```python
+from mumailer import Connection, ProfileSmtp
+
+profile_smtp = ProfileSmtp(filename='profile.ini')
+
+connection = Connection(server=profile_smtp.server,
+                        port=profile_smtp.port,
+                        username=profile_smtp.username,
+                        password=profile_smtp.password,
+                        use_tls=profile_smtp.use_tls,
+                        use_ssl=profile_smtp.use_ssl)
+```
