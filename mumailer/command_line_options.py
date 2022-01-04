@@ -60,7 +60,7 @@ class CommandLineOptions(object):
         Add SMTP command-line options
         """
         group = self.add_group('SMTP options')
-        group.add_argument('--smtp-profile',
+        group.add_argument('--profile-smtp',
                            required=False,
                            type=str,
                            help='profile file with SMTP settings')
@@ -170,15 +170,15 @@ class CommandLineOptions(object):
         :return: command-line options
         """
         self.options = self.parser.parse_args()
-        # Check if smtp-profile or sender/server/port arguments options are set
-        if not self.options.smtp_profile and not all([self.options.server,
+        # Check if profile-smtp or sender/server/port arguments options are set
+        if not self.options.profile_smtp and not all([self.options.server,
                                                       self.options.port]):
-            raise argparse.ArgumentTypeError('Missing smtp-profile or '
+            raise argparse.ArgumentTypeError('Missing profile-smtp or '
                                              'server+port options')
-        # Check if the profile file exists
-        if (self.options.smtp_profile and
-                not pathlib.Path(self.options.smtp_profile).is_file()):
-            raise argparse.ArgumentTypeError('The smtp-profile specified '
+        # Check if the profile-smtp file exists
+        if (self.options.profile_smtp and
+                not pathlib.Path(self.options.profile_smtp).is_file()):
+            raise argparse.ArgumentTypeError('The profile-smtp specified '
                                              'does not exist')
 
         # Check the content_type arguments

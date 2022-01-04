@@ -57,7 +57,7 @@ if __name__ == '__main__':
             content_type=command_line.get_attachment_content_type(
                 index=index)))
 
-    profile_smtp = ProfileSmtp(filename=options.smtp_profile)
+    profile_smtp = ProfileSmtp(filename=options.profile_smtp)
     mailer = Connection(server=options.server or profile_smtp.server,
                         port=options.port or profile_smtp.port,
                         username=options.username or profile_smtp.username,
