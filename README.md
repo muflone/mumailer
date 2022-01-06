@@ -128,3 +128,44 @@ connection = Connection(server=profile_smtp.server,
                         use_tls=profile_smtp.use_tls,
                         use_ssl=profile_smtp.use_ssl)
 ```
+
+## Message Profiles
+
+Message profiles files can be used to set up the options for the message to be
+sent, saving in a profile file the sender, the recipients, subject, attachments
+list and others options.
+
+```yaml
+MESSAGE:
+  SENDER: Muflone muflone@example.com
+  TO:
+    - Foo foo@example.com
+  CC:
+    - Bar bar@example.com
+  SUBJECT: Test e-mail
+  BODY: <html><body><h1>Hello world!</h1></body></html>
+  HTML: true
+  ATTACHMENTS:
+    - README.md
+    - LICENSE
+  CONTENT_TYPES:
+    - text/plain
+    - application/octet-stream
+```
+
+And instance the **ProfileMessage** object:
+
+```python
+from mumailer import Message, ProfileMessage, Recipient
+
+profile_message = ProfileMessage(filename='profile-message.yaml')
+
+message = Message(sender=Recipient.parse(profile_message.sender),
+                  reply_to=Recipient.parse(profile_message.reply_to),
+                  to=Recipient.parse_as_list(profile_message.to),
+                  cc=Recipient.parse_as_list(profile_message.cc),
+                  bcc=Recipient.parse_as_list(profile_message.bcc),
+                  subject=profile_message.subject,
+                  body=profile_message.body,
+                  use_html=profile_message.use_html)
+```

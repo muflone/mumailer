@@ -102,7 +102,7 @@ class CommandLineOptions(object):
         """
         group = self.add_group('recipients')
         group.add_argument('--sender',
-                           required=True,
+                           required=False,
                            type=self._recipient_type,
                            help='Sender name and address')
         group.add_argument('--reply_to',
@@ -133,6 +133,10 @@ class CommandLineOptions(object):
         Add recipients command-line options
         """
         group = self.add_group('message')
+        group.add_argument('--profile-message',
+                           required=False,
+                           type=str,
+                           help='profile file with message settings')
         group.add_argument('--subject',
                            required=False,
                            type=str,
@@ -175,10 +179,19 @@ class CommandLineOptions(object):
                                                       self.options.port]):
             raise argparse.ArgumentTypeError('Missing profile-smtp or '
                                              'server+port options')
+        # Check if profile-message or sender argument option is set
+        if not self.options.profile_message and not self.options.sender:
+            raise argparse.ArgumentTypeError('Missing profile-message or '
+                                             'sender option')
         # Check if the profile-smtp file exists
         if (self.options.profile_smtp and
                 not pathlib.Path(self.options.profile_smtp).is_file()):
             raise argparse.ArgumentTypeError('The profile-smtp specified '
+                                             'does not exist')
+        # Check if the profile-message file exists
+        if (self.options.profile_message and
+                not pathlib.Path(self.options.profile_message).is_file()):
+            raise argparse.ArgumentTypeError('The profile-message specified '
                                              'does not exist')
 
         # Check the content_type arguments

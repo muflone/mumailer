@@ -24,6 +24,7 @@ from .connection import Connection                                 # noqa: F401
 from .constants import APP_VERSION as __version__                  # noqa: F401
 from .encryption import ENCRYPTION_PROTOCOLS                       # noqa: F401
 from .message import Message                                       # noqa: F401
+from .profile_message import ProfileMessage                        # noqa: F401
 from .profile_smtp import ProfileSmtp                              # noqa: F401
 from .recipient import Recipient                                   # noqa: F401
 from .yaml_profile import YamlProfile                              # noqa: F401

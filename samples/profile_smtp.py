@@ -23,6 +23,7 @@ from mumailer import (ENCRYPTION_PROTOCOLS,
                       CommandLineOptions,
                       Connection,
                       Message,
+                      ProfileMessage,
                       ProfileSmtp,
                       Recipient)
 
@@ -37,25 +38,32 @@ if __name__ == '__main__':
     options = command_line.parse_options()
     # Load SMTP settings from profile file
     profile_smtp = ProfileSmtp(filename=options.profile_smtp)
+    # Load message settings from profile file
+    profile_message = ProfileMessage(filename=options.profile_message)
     # Get message body from body_file or body options
-    if options.body_file:
-        with open(options.body_file, 'r') as file:
+    if options.body_file or profile_message.body_file:
+        with open(options.body_file or profile_message.body_file, 'r') as file:
             body = file.read()
     else:
-        body = options.body
-    message = Message(sender=Recipient.parse(options.sender),
-                      reply_to=Recipient.parse(options.reply_to),
-                      to=Recipient.parse_as_list(options.to),
-                      cc=Recipient.parse_as_list(options.cc),
-                      bcc=Recipient.parse_as_list(options.bcc),
-                      subject=options.subject,
-                      body=body,
-                      use_html=options.html)
+        body = options.body or profile_message.body
+    message = Message(
+        sender=Recipient.parse(options.sender or profile_message.sender),
+        reply_to=Recipient.parse(options.reply_to or profile_message.reply_to),
+        to=Recipient.parse_as_list(options.to or profile_message.to),
+        cc=Recipient.parse_as_list(options.cc or profile_message.cc),
+        bcc=Recipient.parse_as_list(options.bcc or profile_message.bcc),
+        subject=options.subject or profile_message.subject,
+        body=body,
+        use_html=options.html or profile_message.use_html)
     # Add attachments
-    for index, attachment_file in enumerate(options.attachment):
+    attachments = options.attachment or profile_message.attachments
+    for index, attachment_file in enumerate(attachments):
+        content_type = (command_line.get_content_type(index=index)
+                        if options.content_type
+                        else profile_message.get_content_type(index=index))
         message.add_attachment(Attachment.load_filename(
             filename=attachment_file,
-            content_type=command_line.get_content_type(index=index)))
+            content_type=content_type))
     mailer = Connection(server=options.server or profile_smtp.server,
                         port=options.port or profile_smtp.port,
                         username=options.username or profile_smtp.username,
