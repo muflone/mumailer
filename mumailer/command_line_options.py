@@ -174,6 +174,10 @@ class CommandLineOptions(object):
         :return: command-line options
         """
         self.options = self.parser.parse_args()
+        # Check for missing options
+        if not any(vars(self.options).values()):
+            self.parser.print_help()
+            self.parser.exit(1)
         # Check if profile-smtp or server/port arguments options are set
         if not self.options.profile_smtp and not all([self.options.server,
                                                       self.options.port]):
