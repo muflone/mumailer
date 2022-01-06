@@ -45,9 +45,9 @@ if __name__ == '__main__':
         body = options.body
     message = Message(sender=Recipient.parse(options.sender),
                       reply_to=Recipient.parse(options.reply_to),
-                      to=[Recipient.parse(option) for option in options.to],
-                      cc=[Recipient.parse(option) for option in options.cc],
-                      bcc=[Recipient.parse(option) for option in options.bcc],
+                      to=Recipient.parse_as_list(options.to),
+                      cc=Recipient.parse_as_list(options.cc),
+                      bcc=Recipient.parse_as_list(options.bcc),
                       subject=options.subject,
                       body=body,
                       use_html=options.html)

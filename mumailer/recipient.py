@@ -56,3 +56,14 @@ class Recipient(object):
             result = Recipient(name=name,
                                address=email)
         return result
+
+    @classmethod
+    def parse_as_list(self, addresses: list[str]) -> list['Recipient']:
+        """
+        Parse a list of addresses as a Recipients list
+        Each address can receive both "Name email" or "email" only
+
+        :param addresses: list to extract recipient addresses
+        :return: Recipients list object
+        """
+        return list(map(self.parse, addresses))
