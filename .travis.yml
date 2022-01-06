@@ -8,4 +8,5 @@ script:
   - pycodestyle .
   - python -m flake8 .
   - python -m pip install --root=build install -e .
-  - ls -laR build
+  - mumailer --help
+  - mumailer --version

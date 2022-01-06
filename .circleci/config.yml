@@ -30,4 +30,5 @@ jobs:
             pycodestyle mumailer
             python -m flake8 mumailer
             python -m pip install --root=build -e .
-            ls -laR .
+            mumailer --help
+            mumailer --version
