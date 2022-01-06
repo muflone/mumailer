@@ -50,7 +50,7 @@ setuptools.setup(
     url=mumailer.constants.APP_URL,
     packages=['mumailer'],
     package_dir={'mumailer': 'mumailer'},
-    data_files=[('mumailer/samples', glob.glob('samples/*.py'))],
+    package_data={'mumailer': ['samples/*.py']},
     install_requires=install_requires,
     classifiers=[
         'Development Status :: 1 - Planning ',
