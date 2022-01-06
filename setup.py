@@ -18,7 +18,6 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-import glob
 import os.path
 import pkg_resources
 import setuptools
