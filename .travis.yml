@@ -7,5 +7,5 @@ script:
   - python -m compileall .
   - pycodestyle .
   - python -m flake8 .
-  - python setup.py install --optimize=1 --root=build
+  - python -m pip install --root=build install -e .
   - ls -laR build

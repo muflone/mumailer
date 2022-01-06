@@ -29,5 +29,5 @@ jobs:
             python -m compileall mumailer
             pycodestyle mumailer
             python -m flake8 mumailer
-            python setup.py install --optimize=1 --root=build
+            python -m pip install --root=build -e .
             ls -laR build
