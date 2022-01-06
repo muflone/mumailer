@@ -28,7 +28,7 @@ from mumailer import (ENCRYPTION_PROTOCOLS,
                       Recipient)
 
 
-if __name__ == '__main__':
+def main():
     # Get command-line options
     command_line = CommandLineOptions()
     command_line.add_smtp_arguments()
@@ -77,3 +77,7 @@ if __name__ == '__main__':
     mailer.connect()
     mailer.send(message)
     mailer.disconnect()
+
+
+if __name__ == '__main__':
+    main()
