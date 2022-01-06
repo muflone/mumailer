@@ -22,6 +22,7 @@ import argparse
 import pathlib
 from typing import Optional
 
+from .constants import APP_NAME, APP_VERSION, APP_DESCRIPTION
 from .encryption import ENCRYPTION_PROTOCOLS
 from .recipient import Recipient
 
@@ -31,7 +32,12 @@ class CommandLineOptions(object):
     Parse command line arguments
     """
     def __init__(self):
-        self.parser = argparse.ArgumentParser()
+        self.parser = argparse.ArgumentParser(prog=f'{APP_NAME}',
+                                              description=APP_DESCRIPTION)
+        self.parser.add_argument('-V',
+                                 '--version',
+                                 action='version',
+                                 version=f'{APP_NAME} v{APP_VERSION}')
 
     def _recipient_type(self, option) -> Recipient:
         """
