@@ -26,8 +26,8 @@ jobs:
           name: check code
           command: |
             . venv/bin/activate
-            python -m compileall mumailer samples
-            pycodestyle mumailer samples
-            python -m flake8 mumailer samples
+            python -m compileall mumailer
+            pycodestyle mumailer
+            python -m flake8 mumailer
             python setup.py install --optimize=1 --root=build
             ls -laR build
