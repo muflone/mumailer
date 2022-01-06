@@ -18,6 +18,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
+import glob
 import os.path
 import pkg_resources
 import setuptools
@@ -47,7 +48,9 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url=mumailer.constants.APP_URL,
-    packages=setuptools.find_packages(),
+    packages=['mumailer'],
+    package_dir={'mumailer': 'mumailer'},
+    data_files=[('mumailer/samples', glob.glob('samples/*.py'))],
     install_requires=install_requires,
     classifiers=[
         'Development Status :: 1 - Planning ',
