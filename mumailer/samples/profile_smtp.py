@@ -22,6 +22,7 @@ from mumailer import (ENCRYPTION_PROTOCOLS,
                       Attachment,
                       CommandLineOptions,
                       Connection,
+                      Header,
                       Message,
                       ProfileMessage,
                       ProfileSmtp,
@@ -54,7 +55,9 @@ def main():
         bcc=Recipient.parse_as_list(options.bcc or profile_message.bcc),
         subject=options.subject or profile_message.subject,
         body=body,
-        use_html=options.html or profile_message.use_html)
+        use_html=options.html or profile_message.use_html,
+        headers=Header.parse_as_list(options.header or profile_message.headers)
+    )
     # Add attachments
     attachments = options.attachment or profile_message.attachments
     for index, attachment_file in enumerate(attachments):

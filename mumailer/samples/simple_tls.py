@@ -22,6 +22,7 @@ from mumailer import (ENCRYPTION_PROTOCOLS,
                       Attachment,
                       CommandLineOptions,
                       Connection,
+                      Header,
                       Message,
                       Recipient)
 
@@ -48,7 +49,8 @@ def main():
                       bcc=Recipient.parse_as_list(options.bcc),
                       subject=options.subject,
                       body=body,
-                      use_html=options.html)
+                      use_html=options.html,
+                      headers=Header.parse_as_list(options.header))
     # Add attachments
     for index, attachment_file in enumerate(options.attachment):
         message.add_attachment(Attachment.load_filename(

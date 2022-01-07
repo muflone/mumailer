@@ -24,6 +24,7 @@ from typing import Optional
 
 from .constants import APP_NAME, APP_VERSION, APP_DESCRIPTION
 from .encryption import ENCRYPTION_PROTOCOLS
+from .header import Header
 from .recipient import Recipient
 
 
@@ -50,6 +51,19 @@ class CommandLineOptions(object):
         recipient = Recipient.parse(option)
         if '@' not in recipient.address:
             raise argparse.ArgumentTypeError(f'Invalid recipient {option}')
+        return option
+
+    def _header_type(self, option) -> Header:
+        """
+        Validate header type option
+
+        :param option: header string in the form "Name=address"
+        :return: header string if the option is valid or raise
+                 ArgumentTypeError
+        """
+        header = Header.parse(option)
+        if not header:
+            raise argparse.ArgumentTypeError(f'Invalid header {option}')
         return option
 
     def add_group(self, name: str) -> argparse._ArgumentGroup:
@@ -172,6 +186,12 @@ class CommandLineOptions(object):
                            default=[],
                            nargs=argparse.ZERO_OR_MORE,
                            help='Content type list for attachments')
+        group.add_argument('--header',
+                           required=False,
+                           type=str,
+                           default=[],
+                           nargs=argparse.ZERO_OR_MORE,
+                           help='Additional header for the message')
 
     def parse_options(self) -> argparse.Namespace:
         """

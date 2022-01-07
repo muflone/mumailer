@@ -25,6 +25,7 @@ import email.utils
 from typing import Optional
 
 from .attachment import Attachment
+from .header import Header
 from .recipient import Recipient
 
 
@@ -40,6 +41,8 @@ class Message(object):
     use_html: bool = False
     date: Optional[datetime.datetime] = None
     attachments: Optional[list[Attachment]] = dataclasses.field(
+        default_factory=lambda: [])
+    headers: Optional[list[Header]] = dataclasses.field(
         default_factory=lambda: [])
 
     def to_email_message(self) -> email.message.EmailMessage:
@@ -60,6 +63,9 @@ class Message(object):
             message['Bcc'] = ', '.join(map(str, self.bcc))
         message['Subject'] = self.subject
         message['Date'] = email.utils.formatdate(timeval=self.date)
+        # Add custom headers
+        for header in self.headers:
+            message[header.name] = header.value
         message.set_content(self.body,
                             subtype='html' if self.use_html else 'plain')
         if self.attachments:
@@ -80,3 +86,12 @@ class Message(object):
         :param attachment: Attachment object to append
         """
         self.attachments.append(attachment)
+
+    def add_header(self,
+                   header: Header) -> None:
+        """
+        Add a new Header object to the headers list
+
+        :param header: Header object to append
+        """
+        self.headers.append(header)

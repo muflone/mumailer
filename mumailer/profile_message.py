@@ -37,6 +37,7 @@ class ProfileMessage(YamlProfile):
     DATE = 'DATE'
     ATTACHMENTS = 'ATTACHMENTS'
     CONTENT_TYPES = 'CONTENT_TYPES'
+    HEADERS = 'HEADERS'
 
     def __init__(self, filename: str):
         super().__init__(filename)
@@ -60,6 +61,8 @@ class ProfileMessage(YamlProfile):
                                            default=[])
         self.content_types = self.get_option(option=self.CONTENT_TYPES,
                                              default=[])
+        self.headers = self.get_option(option=self.HEADERS,
+                                       default=[])
 
     def get_content_type(self, index: int) -> Optional[str]:
         """
