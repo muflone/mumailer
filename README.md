@@ -97,6 +97,22 @@ txt_attachment = Attachment.load_filename(filename='document.txt',
 message.add_attachment(txt_attachment)
 ```
 
+## Adding custom headers
+
+Custom headers can be added to the message by passing one or more Header objects
+to the `headers` argument or by adding each header to the headers list.
+
+```python
+from mumailer import Header
+
+header = Header(name='X-Mailer',
+                value='MuMailer')
+message.add_header(header)
+
+header = Header.parse(header='X-Spam=0')
+message.add_attachment(header)
+```
+
 ## SMTP Profiles
 
 The SMTP settings can also be got from a profile file like the following:
@@ -151,12 +167,15 @@ MESSAGE:
   CONTENT_TYPES:
     - text/plain
     - application/octet-stream
+- HEADERS:
+    - X-Mailer=MuMailer
+    - X-MuMailer-Profile=message.yaml
 ```
 
 And instance the **ProfileMessage** object:
 
 ```python
-from mumailer import Message, ProfileMessage, Recipient
+from mumailer import Header, Message, ProfileMessage, Recipient
 
 profile_message = ProfileMessage(filename='profile-message.yaml')
 
@@ -167,5 +186,6 @@ message = Message(sender=Recipient.parse(profile_message.sender),
                   bcc=Recipient.parse_as_list(profile_message.bcc),
                   subject=profile_message.subject,
                   body=profile_message.body,
-                  use_html=profile_message.use_html)
+                  use_html=profile_message.use_html,
+                  headers=Header.parse_as_list(profile_message.headers))
 ```
