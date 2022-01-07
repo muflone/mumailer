@@ -110,7 +110,7 @@ header = Header(name='X-Mailer',
 message.add_header(header)
 
 header = Header.parse(header='X-Spam=0')
-message.add_attachment(header)
+message.add_header(header)
 ```
 
 ## SMTP Profiles
