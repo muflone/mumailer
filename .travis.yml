@@ -4,9 +4,14 @@ python:
 install:
   - pip install -r requirements_ci.txt
 script:
-  - python -m compileall .
-  - pycodestyle .
-  - python -m flake8 .
-  - python -m pip install --root=build install -e .
+  - python -m compileall mumailer
+  - python -m pycodestyle mumailer
+  - python -m flake8 mumailer
+  - python -m build --outdir=dist .
+  - python -m pip install --verbose dist/*.whl
+  - python -m pip list
+  - python -m pip freeze
   - mumailer --help
   - mumailer --version
+  - ls -laR .
+  - python -m pip uninstall --yes --verbose mumailer

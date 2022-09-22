@@ -1,9 +1,10 @@
 version: 2.1
 
 orbs:
-  # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
-  # Orb commands and jobs help you with common scripting around a language/tool
-  # so you dont have to copy and paste it everywhere.
+  # The python orb contains a set of prepackaged CircleCI configuration you can
+  # use repeatedly in your configuration files
+  # Orb commands and jobs help you with common scripting around a language/tool,
+  # so you don't have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.2
 
@@ -27,8 +28,13 @@ jobs:
           command: |
             . venv/bin/activate
             python -m compileall mumailer
-            pycodestyle mumailer
+            python -m pycodestyle mumailer
             python -m flake8 mumailer
-            python -m pip install --root=build -e .
+            python -m build --outdir=dist .
+            python -m pip install --verbose dist/*.whl
+            python -m pip list
+            python -m pip freeze
             mumailer --help
             mumailer --version
+            ls -laR .
+            python -m pip uninstall --yes --verbose mumailer

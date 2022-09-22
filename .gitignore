@@ -8,4 +8,4 @@ __pycache__/
 # Ignore build and dist folders for PyPI
 /build/
 /dist/
-MuMailer.egg-info/
+/*.egg-info/
