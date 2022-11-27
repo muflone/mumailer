@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 ##
 #     Project: MuMailer
 # Description: Simple mailer agent using SMTP
