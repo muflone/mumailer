@@ -1,5 +1,5 @@
 -r requirements.txt
 
-flake8==5.0.4
-pycodestyle==2.9.1
-build==0.8.0
+flake8==6.1.0
+pycodestyle==2.11.0
+build==0.10.0
