@@ -20,10 +20,12 @@
 
 import ssl
 
+
 ENCRYPTION_PROTOCOLS = {
     'SSLv23': ssl.PROTOCOL_SSLv23,
     'TLS_CLIENT': ssl.PROTOCOL_TLS_CLIENT,
     'TLS_SERVER': ssl.PROTOCOL_TLS_SERVER,
+    'TLS': ssl.PROTOCOL_TLS,
     'TLSv1': ssl.PROTOCOL_TLSv1,
     'TLSv1_1': ssl.PROTOCOL_TLSv1_1,
     'TLSv1_2': ssl.PROTOCOL_TLSv1_2,
