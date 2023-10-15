@@ -56,7 +56,7 @@ message = Message(sender=Recipient('Muflone', 'muflone@example.com'),
                   body='<html><body><h1>Hello world!</h1></body></html>',
                   use_html=True)
 connection = Connection(server='localhost',
-                        port=465,
+                        port=587,
                         username='<username>',
                         password='<smtp password>',
                         use_tls=True,
@@ -71,7 +71,7 @@ message to *Foo*, adding *Bar* to the CC (carbon copy) list, using the subject
 *Test e-mail* with the HTML body **Hello world!**.
 
 The SMTP connection will be established to the localhost server on the TCP port
-465 (the server must be running) using username and password authentication.
+587 (the server must be running) using username and password authentication.
 The SMTP data will be encrypted using the TLS protocol.
 
 ## Adding attachments
