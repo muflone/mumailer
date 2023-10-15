@@ -29,9 +29,8 @@ class Attachment(object):
     charset: str = None
     content_type: str = None
 
-    @classmethod
-    def load_filename(self,
-                      filename: str,
+    @staticmethod
+    def load_filename(filename: str,
                       content_type='application/octet-stream') -> 'Attachment':
         """
         Load an attachment from a file

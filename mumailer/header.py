@@ -34,8 +34,8 @@ class Header(object):
         """
         return (f'{self.name}: {self.value}')
 
-    @classmethod
-    def parse(self, header: str) -> 'Header':
+    @staticmethod
+    def parse(header: str) -> 'Header':
         """
         Parse a header in a Header object
 
@@ -53,12 +53,12 @@ class Header(object):
                 result = None
         return result
 
-    @classmethod
-    def parse_as_list(self, headers: list[str]) -> list['Header']:
+    @staticmethod
+    def parse_as_list(headers: list[str]) -> list['Header']:
         """
         Parse a list of headers as a Headers list
 
         :param headers: list to extract headers
         :return: Headers list object
         """
-        return list(map(self.parse, headers))
+        return list(map(Header.parse, headers))
