@@ -46,7 +46,8 @@ class Header(object):
             result = None
         else:
             if '=' in header:
-                name, value = header.split('=', 1)
+                name, value = header.split(sep='=',
+                                           maxsplit=1)
                 result = Header(name=name,
                                 value=value)
             else:

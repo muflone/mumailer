@@ -49,7 +49,8 @@ class Recipient(object):
             result = None
         else:
             if ' ' in address:
-                name, email = address.rsplit(' ', 1)
+                name, email = address.rsplit(sep=' ',
+                                             maxsplit=1)
             else:
                 name = None
                 email = address

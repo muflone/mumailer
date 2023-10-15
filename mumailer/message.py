@@ -71,7 +71,8 @@ class Message(object):
         if self.attachments:
             # Add attachments
             for attachment in self.attachments:
-                maintype, subtype = attachment.content_type.split('/', 1)
+                maintype, subtype = attachment.content_type.split(sep='/',
+                                                                  maxsplit=1)
                 message.add_attachment(obj=attachment.content,
                                        maintype=maintype,
                                        subtype=subtype,

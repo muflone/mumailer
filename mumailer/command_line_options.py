@@ -40,7 +40,7 @@ class CommandLineOptions(object):
                                  action='version',
                                  version=f'{APP_NAME} v{APP_VERSION}')
 
-    def _recipient_type(self, option) -> Recipient:
+    def _recipient_type(self, option: str) -> Recipient:
         """
         Validate recipient type option
 
@@ -53,7 +53,7 @@ class CommandLineOptions(object):
             raise argparse.ArgumentTypeError(f'Invalid recipient {option}')
         return option
 
-    def _header_type(self, option) -> Header:
+    def _header_type(self, option: str) -> Header:
         """
         Validate header type option
 
@@ -110,7 +110,7 @@ class CommandLineOptions(object):
                            required=False,
                            type=str,
                            choices=ENCRYPTION_PROTOCOLS.keys(),
-                           help='encrypion protocol')
+                           help='encryption protocol')
         group.add_argument('--ciphers',
                            required=False,
                            type=str,

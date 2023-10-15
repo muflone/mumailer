@@ -30,7 +30,8 @@ class Attachment(object):
 
     @staticmethod
     def load_filename(filename: str,
-                      content_type='application/octet-stream') -> 'Attachment':
+                      content_type: str = 'application/octet-stream'
+                      ) -> 'Attachment':
         """
         Load an attachment from a file
 
