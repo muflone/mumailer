@@ -45,7 +45,7 @@ class Message(object):
     headers: Optional[list[Header]] = dataclasses.field(
         default_factory=lambda: [])
 
-    def to_email_message(self) -> email.message.EmailMessage:
+    def _to_email_message(self) -> email.message.EmailMessage:
         """
         Create a new EmailMessage object with the fields from attributes
 

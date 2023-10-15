@@ -99,4 +99,4 @@ class Connection(object):
 
         :param message: Message object to send
         """
-        self.connection.send_message(msg=message.to_email_message())
+        self.connection.send_message(msg=message._to_email_message())
