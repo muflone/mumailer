@@ -26,7 +26,6 @@ import pathlib
 class Attachment(object):
     filename: str
     content: bytes
-    charset: str = None
     content_type: str = None
 
     @staticmethod
