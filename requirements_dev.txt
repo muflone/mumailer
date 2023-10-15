@@ -1,6 +1,6 @@
 -r requirements.txt
 
 flake8==6.1.0
-pycodestyle==2.11.0
-build==0.10.0
+pycodestyle==2.11.1
+build==1.0.3
 twine==4.0.2
