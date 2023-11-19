@@ -19,8 +19,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ##
 
-from mumailer import (ENCRYPTION_PROTOCOLS,
-                      Attachment,
+from mumailer import (Attachment,
                       CommandLineOptions,
                       Connection,
                       Header,
@@ -71,13 +70,10 @@ def main():
     mailer = Connection(server=options.server or profile_smtp.server,
                         port=options.port or profile_smtp.port,
                         username=options.username or profile_smtp.username,
-                        password=options.password or profile_smtp.password,
-                        use_tls=profile_smtp.use_tls,
-                        use_ssl=profile_smtp.use_ssl)
-    if encryption := ENCRYPTION_PROTOCOLS.get(options.encryption or
-                                              profile_smtp.encryption):
-        mailer.set_encryption(protocol=encryption,
-                              ciphers=options.ciphers or profile_smtp.ciphers)
+                        password=options.password or profile_smtp.password)
+    mailer.set_encryption(encryption=(options.encryption or
+                                      profile_smtp.encryption),
+                          ciphers=options.ciphers or profile_smtp.ciphers)
     mailer.connect()
     mailer.send(message)
     mailer.disconnect()

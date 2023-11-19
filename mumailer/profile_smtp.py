@@ -27,8 +27,6 @@ class ProfileSmtp(YamlProfile):
     OPTION_PORT = 'PORT'
     OPTION_USERNAME = 'USERNAME'
     OPTION_PASSWORD = 'PASSWORD'
-    OPTION_USE_TLS = 'TLS'
-    OPTION_USE_SSL = 'SSL'
     OPTION_TIMEOUT = 'TIMEOUT'
     OPTION_ENCRYPTION = 'ENCRYPTION'
     OPTION_CIPHERS = 'CIPHERS'
@@ -42,9 +40,5 @@ class ProfileSmtp(YamlProfile):
                                     default=25)
         self.username = self.get_option(option=self.OPTION_USERNAME)
         self.password = self.get_option(option=self.OPTION_PASSWORD)
-        self.use_tls = self.get_option(option=self.OPTION_USE_TLS,
-                                       default=False)
-        self.use_ssl = self.get_option(option=self.OPTION_USE_SSL,
-                                       default=False)
         self.encryption = self.get_option(option=self.OPTION_ENCRYPTION)
         self.ciphers = self.get_option(option=self.OPTION_CIPHERS)

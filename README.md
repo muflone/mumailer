@@ -58,9 +58,7 @@ message = Message(sender=Recipient('Muflone', 'muflone@example.com'),
 connection = Connection(server='localhost',
                         port=587,
                         username='<username>',
-                        password='<smtp password>',
-                        use_tls=True,
-                        use_ssl=False)
+                        password='<smtp password>')
 connection.connect()
 connection.send(message)
 connection.disconnect()
@@ -124,8 +122,6 @@ SMTP:
   PORT: 465
   USERNAME: <username>
   PASSWORD: <password>
-  TLS: false
-  SSL: true
   TIMEOUT: 30
   ENCRYPTION: TLSv1_2
   CIPHERS:
@@ -141,9 +137,7 @@ profile_smtp = ProfileSmtp(filename='profile-smtp.yaml')
 connection = Connection(server=profile_smtp.server,
                         port=profile_smtp.port,
                         username=profile_smtp.username,
-                        password=profile_smtp.password,
-                        use_tls=profile_smtp.use_tls,
-                        use_ssl=profile_smtp.use_ssl)
+                        password=profile_smtp.password)
 ```
 
 ## Message Profiles

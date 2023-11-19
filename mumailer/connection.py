@@ -20,7 +20,9 @@
 
 import smtplib
 import ssl
+from typing import Optional
 
+from .encryption import ENCRYPTION_PROTOCOLS
 from .message import Message
 
 
@@ -29,30 +31,31 @@ class Connection(object):
                  server: str,
                  port: int = 25,
                  username: str = None,
-                 password: str = None,
-                 use_tls: bool = False,
-                 use_ssl: bool = False):
+                 password: str = None):
         self.server = server
         self.port = port
         self.username = username
         self.password = password
-        self.use_tls = use_tls
-        self.use_ssl = use_ssl
         self.connection = None
         self.context = None
+        self._use_ssl = False
+        self._use_tls = False
 
     def set_encryption(self,
-                       protocol: ssl._SSLMethod,
-                       ciphers: str = '') -> None:
+                       encryption: Optional[str],
+                       ciphers: Optional[str] = '') -> None:
         """
         Set the encryption protocol and ciphers
 
-        :param protocol: encryption protocol
+        :param encryption: encryption method from ENCRYPTION_PROTOCOLS
         :param ciphers: encryption ciphers for the selected protocol
         """
-        self.context = ssl.SSLContext(protocol=protocol)
-        if ciphers:
-            self.context.set_ciphers(ciphers)
+        self._use_ssl = encryption.startswith('SSL') if encryption else False
+        self._use_tls = encryption.startswith('TLS') if encryption else False
+        if protocol := ENCRYPTION_PROTOCOLS.get(encryption):
+            self.context = ssl.SSLContext(protocol=protocol)
+            if ciphers:
+                self.context.set_ciphers(ciphers)
 
     def connect(self,
                 timeout: int = 30) -> None:
@@ -61,7 +64,7 @@ class Connection(object):
 
         :param timeout: timeout in seconds before aborting the connection
         """
-        if not self.use_ssl:
+        if not self._use_ssl:
             # Use plain text
             self.connection = smtplib.SMTP(host=self.server,
                                            port=self.port,
@@ -72,7 +75,7 @@ class Connection(object):
                                                port=self.port,
                                                timeout=timeout,
                                                context=self.context)
-        if self.use_tls:
+        if self._use_tls:
             # Use TLS
             self.connection.starttls(context=self.context)
         if self.username:
