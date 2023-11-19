@@ -19,7 +19,7 @@
 ##
 
 APP_NAME = 'MuMailer'
-APP_VERSION = '0.4.4'
+APP_VERSION = '0.5.0'
 APP_DESCRIPTION = 'Simple mailer agent using SMTP'
 APP_DOMAIN = 'mumailer'
 APP_ID = f'{APP_DOMAIN}.muflone.com'
