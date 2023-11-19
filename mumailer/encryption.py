@@ -22,6 +22,7 @@ import ssl
 
 
 ENCRYPTION_PROTOCOLS = {
+    '': None,
     'SSLv23': ssl.PROTOCOL_SSLv23,
     'TLS_CLIENT': ssl.PROTOCOL_TLS_CLIENT,
     'TLS_SERVER': ssl.PROTOCOL_TLS_SERVER,
